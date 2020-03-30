@@ -7,6 +7,7 @@ var cookieParser=require('cookie-parser')
 var passport=require('passport')
 var flash=require('connect-flash')
 var validator=require('express-validator')
+var path = require('path');
 
 var app=express()
 
@@ -16,8 +17,6 @@ var routes = require('./routes/index');
 var UserRoutes = require('./routes/user');
 
 mongoose.connect('mongodb://localhost:27017/blog', {useNewUrlParser: true});
-
-app.use('/public', express.static('public'))
 
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', '.hbs');
@@ -33,16 +32,15 @@ saveUninitialized:false,
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req,res,next){
+    res.locals.login=req.isAuthenticated()
+    next()
+})
 app.use('/', routes);
 app.use('/user', UserRoutes);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  });
   
 app.listen(2929,()=>{
     console.log('Server Running on 2929')

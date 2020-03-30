@@ -1,0 +1,47 @@
+ body{
+     font-family: Arial, Helvetica, sans-serif;
+ }
+img {
+    max-height: 300px;
+}
+
+  
+ .fa-heart-o {
+    color: red;
+    cursor: pointer;
+  }
+  
+  .fa-heart {
+    color: red;
+    cursor: pointer;
+  }
+  .header{
+      padding:20px;
+  }
+  .footer{
+      padding:15px;
+  }
+  .content{
+      margin:15px;
+
+  }
+  #textbox{
+      width:70%;
+      padding:20px;
+  }
+  #userBox
+  {
+      width: 70%;
+       border:1px solid grey
+  }
+  .image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #edit{
+    text-align:right;
+    padding:10px;
+    font-size: 30px;
+    cursor: pointer;
+  }
