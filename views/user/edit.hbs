@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4 form">
+        <h1 align="center">Edit Peronal Details</h1>
+        <br>
+        {{# if user}}
+        <form  action="/user/edit" method="POST">
+            <div class="form-group">
+                <label for="email" >E-mail/Username</label>
+                <br>
+                <input type="text" id="email" value="{{user.email}}" name="email" class="form-control" disabled>
+            </div>
+            <div class="form-group">
+                <label for="Name" >Name</label>
+                <br>
+                <input type="text" id="Name" value="{{user.name}}" name="Name" class="form-control" autocomplete="off" required>
+            </div>
+
+            <br>
+            <input type="hidden" name="_csrf"  value="{{csrfToken}}">
+            <button type="submit" class="btn btn-success col-3 ">Update</button>
+            
+        </form>
+        {{/if}}
+    </div>
+</div>

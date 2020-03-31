@@ -3,15 +3,11 @@ var router = express.Router();
 var Post=require('../models/post')
 
 router.get('/', function(req, res) {
-      Post.find(function(err, docs){
-        var postChunk = []; var chunkSize = 3;
-        for(var i=0; i < docs.length; i += chunkSize){
-          postChunk.push(docs.slice(i, i + chunkSize));
-        }
-        console.log(postChunk);
-        res.render('index', { title: 'Blog App',items: postChunk});
-      });
+     
+            res.render('index', { title: 'Blog App'});
   });
+
+ //For PostMan Checking  
 router.get('/posts',async (req,res)=>{
       const post=await Post.find({})
 
@@ -22,7 +18,7 @@ router.get('/posts',async (req,res)=>{
             res.status(500).send(err)
       }
 })
-
+ //For PostMan Checking  
 router.post('/post',async (req,res)=>{
       const post=new Post(req.body)
 
@@ -34,6 +30,39 @@ router.post('/post',async (req,res)=>{
             res.status(500).send(err)
       }
 })
+ //For PostMan Checking  
+router.delete('/post/:id', async (req, res) => {
+      try {
+        const post = await Post.findByIdAndDelete(req.params.id)
+    
+        if (!post) res.status(404).send("No item found")
+        res.status(200).send()
+      } catch (err) {
+        res.status(500).send(err)
+      }
+})
+//For Postman Update
+router.patch('/post/:id', async (req, res) => {
+      try {
+        await Post.findByIdAndUpdate(req.params.id, req.body)
+        await Post.save()
+        res.send(post)
+      } catch (err) {
+        res.status(500).send(err)
+      }
+    })
+ router.patch('/update/:id', (req, res) => {
 
-
+     Post.findOneAndUpdate(
+        {_id:req.params.id}, {$push: {comments:req.body }},
+        function(err,post){
+          if(err)
+          console.log("Error")
+          else{
+            console.log('Done')
+            res.send(post)
+          }
+        }
+      )
+    })
 module.exports = router;

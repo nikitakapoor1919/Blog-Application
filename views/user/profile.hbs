@@ -1,52 +1,71 @@
+<div id="userBox" >
+<br>
+<div>
+<a href="/user/edit">
+<div id="edit">
+<i class="fa fa-edit"></i>
+</div>
+</a>
+{{# if pic }}
+<img class="image" src=""  width="150" height="170">
+{{else}}
+<img class="image"   width="150" height="170" src="def.jpg">
+{{/if}}
+<h5 align="center"><b>{{username}} </b></h5>
 
-    <div id="userBox" >
-        <br>
-        <div>
-            <div id="edit">
-                <i class="fa fa-edit"></i>
+</div>
+<br>
+<nav class="navbar navbar-default" style="width:100%">
+<a class="navbar-brand" href="/user/profile">My Posts</a>
+</nav>
+<div id="post">
+
+{{# each items}}
+
+<div class="w3-container">
+{{# each this}}
+    <div class="w3-card-4" style="width:65%">
+        <header class="w3-container w3-light-grey header">
+            
+            <a href="/user/delete/{{ this._id }}">
+            <div style="text-align:right">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
             </div>
-            {{# if pic }}
-            <img class="image" src=""  width="150" height="170">
-            {{else}}
-              <img class="image"   width="150" height="170" src="def.jpg">
-            {{/if}}
-            <h5 align="center"><b>{{username}} </b></h5>
-           
+            </a>
+            <img class="img-responsive" src="" alt="">
+            <i class="fa fa-user" aria-hidden="true"></i> &nbsp; <b>{{this.postedBy}}</b>
+            <h6 align="right">{{this.created}}</h6>
+        </header>
+        <div class="w3-container content">
+            <p>{{this.text}}</p><br>
+            <img class="img-responsive" src="{{ this.photo }}" alt="">
         </div>
-        <br>
-        <nav class="navbar navbar-default" style="width:100%">
-           <a class="navbar-brand" href="/user/profile">My Posts</a>
-        </nav>
-        <div id="post">
-                    
-            {{# each items}}
+        <footer class="w3-container w3-light-grey footer">
+            <span id="heart" ><i id="h" class="fa fa-heart-o" aria-hidden="true" ></i></span> {{this.likes.length}}
+            &nbsp;
+            &nbsp;
+            <button > <i class="fa fa-comment-o" aria-hidden="true"></i></button>
+            {{this.comments.length}}
+                {{# each comments}}
+                <div  class="w3-container content" class="commentBox">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                {{#each this}}
 
-                <div class="w3-container">
-                    {{# each this}}
-                        <div class="w3-card-4" style="width:65%">
-                            <header class="w3-container w3-light-grey header">
-                                <img class="img-responsive" src="" alt="">
-                                <i class="fa fa-user" aria-hidden="true"></i> &nbsp; {{this.postedBy}}
-                                <h6 align="right">{{this.created}}</h6>
-                            </header>
-                            <div class="w3-container content">
-                                <p>{{this.text}}</p><br>
-                                <img class="img-responsive" src="{{ this.photo }}" alt="">
-                            </div>
-                            <footer class="w3-container w3-light-grey footer">
-                                <span id="heart" ><i id="h" class="fa fa-heart-o" aria-hidden="true" ></i></span> {{this.likes.length}}
-                                &nbsp;
-                                &nbsp;
-                                <button > <i class="fa fa-comment-o" aria-hidden="true"></i></button>
-                                {{this.comments.length}}
-                            </footer>
-                        </div>
-                        <br>
+                    <b>{{this.postedBy}} </b>
+                    {{this.text}}
+
                 {{/each}}
                 </div>
-            {{/each}}
-
-
-        </div>
+                {{/each}}
+                <a href="/user/add-comment/{{ this._id }}" class="btn btn-primarypull-right" role="button">Add Comment </a>
+        </footer>
     </div>
+    <br>
+{{/each}}
+</div>
+{{/each}}
+
+
+</div>
+</div>
 

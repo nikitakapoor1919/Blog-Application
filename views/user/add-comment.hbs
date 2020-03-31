@@ -28,12 +28,19 @@
      {{/each}}
      </div>
     {{/each}}
-    <a href="/user/add-comment/{{ this._id }}" class="btn btn-primarypull-right" role="button">Add Comment </a>
      </footer>
   </div>
   <br>
 {{/each}}
 </div>
 {{/each}}
-
-    
+ <form method="POST" action="/user/add-comment" style="width:70%">
+            <div class="form-group">
+                <label for="text" ></label>
+                <br>
+                <input type="text" id="text" placeholder="Add a comment" name="Text" class="form-control"autocomplete="off" required>
+            </div>
+            <input type="hidden" name="id" value={{id}}>
+            <input type="hidden" name="_csrf"  value="{{csrfToken}}">
+            <button id="btnAddPost"  type="submit" class="btn btn-primary">Add</button>
+    </form>

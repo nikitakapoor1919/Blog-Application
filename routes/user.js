@@ -3,6 +3,7 @@ var router = express.Router();
 var csrf = require('csurf');
 var passport = require('passport');
 var Post=require('../models/post')
+var User=require('../models/user')
 
 var csrfProtectionToken = csrf();
 router.use(csrfProtectionToken);
@@ -29,13 +30,79 @@ router.post('/add-post',isLoggedIn,function(req,res){
   }
 });
 
+//Add comment
+router.get('/add-comment/:id',isLoggedIn, function(req, res, next){
+  Post.find({_id:req.params.id})
+  .exec( function(err, post){
+    var postChunk = []; var chunkSize = 3;
+    for(var i=0; i < post.length; i += chunkSize){
+      postChunk.push(post.slice(i, i + chunkSize));
+    }
+    console.log(postChunk);
+    res.render('user/add-comment', {items: postChunk,csrfToken: req.csrfToken() ,id:req.params.id});
+  })
+});
+router.post('/add-comment',isLoggedIn, (req, res) => {
+  console.log(req.user.email)
+  console.log(req.body.id)
+  console.log(req.body.Text)
+  var text=req.body.Text
+  Post.findOneAndUpdate(
+     {_id:req.body.id}, {$push: {comments:{text:text,postedBy:req.user.email}}},
+     function(err,post){
+       if(err)
+       console.log("Error")
+       else{
+         console.log('Done')
+         res.redirect("/user/Userhome")
+       }
+     }
+   )
+ })
+ //User Home
+router.get('/Userhome',isLoggedIn, function(req, res) {
+  username=req.user.email
+  console.log(username)
+  Post.find({}).sort({created:-1})
+      .exec( function(err, post){
+            var postChunk = []; var chunkSize = 3;
+            for(var i=0; i < post.length; i += chunkSize){
+              postChunk.push(post.slice(i, i + chunkSize));
+            }
+            console.log(postChunk);
+            res.render('user/Userhome', {items: postChunk});
+          })
+});
+
+//Edit User
+router.get('/edit',isLoggedIn,(req,res)=>{
+  user=req.user
+  console.log(user)
+  res.render("user/edit",{user:user, csrfToken: req.csrfToken()})
+})
+
+router.post('/edit', isLoggedIn, (req, res) => {
+  console.log('Editing')
+  id=req.user.id
+  console.log(id)
+  User.findOneAndUpdate(
+    {_id:id},{$set:{name:req.body.Name}},{upsert:true},
+    function(err,user){
+      if(err)
+      console.log("Error")
+      else{
+        res.redirect("/user/profile")
+      }
+    }
+  )
+})
 
 /* GET : user profile page. */
 router.get('/profile', isLoggedIn, function(req, res, next){
   username=req.user.email
   pic=req.user.photo
   console.log(username)
-  Post.find({"postedBy":username})
+  Post.find({"postedBy":username}).sort({created:-1})
   .exec(function (err,post){
     if(err) console.log("Error")
     else {
@@ -49,16 +116,28 @@ router.get('/profile', isLoggedIn, function(req, res, next){
   })
   
 });
-router.get('/Userhome',isLoggedIn, function(req, res) {
-  Post.find(function(err, docs){
-    var postChunk = []; var chunkSize = 3;
-    for(var i=0; i < docs.length; i += chunkSize){
-      postChunk.push(docs.slice(i, i + chunkSize));
+
+//Delete post
+/*
+router.get('/delete/:id',isLoggedIn,(req,res)=>{
+  user=req.user
+  console.log(user)
+  res.render("user/delete",{user:user, csrfToken: req.csrfToken()})
+})
+
+router.post('/delete/:id',isLoggedIn, (req, res) => {
+  var id=req.params.id
+  Post.deleteOne({_id:id},function(err,post){
+    if(err){
+      console.log("Error")
     }
-    console.log(postChunk);
-    res.render('user/Userhome', {items: postChunk});
-  });
-});
+    else{
+      console.log(post)
+      res.redirect("/user/profile")
+    }
+  })
+})
+*/
 router.get('/logout', isLoggedIn, function(req, res, next){
   req.logout();
   res.redirect('/');
@@ -75,7 +154,7 @@ router.get('/signup', function(req, res, next){
 });
 
 router.post('/signup', passport.authenticate('local.signup', {
-  successRedirect:'/user/profile',
+  successRedirect:'/user/Userhome',
   failureRedirect: '/user/signup',
   failureFlash: true
 }))
@@ -87,10 +166,12 @@ router.get('/signin', function(req, res, next){
 });
 
 router.post('/signin', passport.authenticate('local.signin', {
-  successRedirect:'/user/profile',
+  successRedirect:'/user/Userhome',
   failureRedirect: '/user/signin',
   failureFlash: true
 }));
+
+
 module.exports = router;
 
 function isLoggedIn(req, res, next){

@@ -1,37 +1,6 @@
-
-  <h2>This Blog App helps you connect and share with the people in your life.</h2>
-<img src="https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/OBaVg52wtTZ.png" >
-{{# each items}}
-
-<div class="w3-container">
-{{# each this}}
-  <div class="w3-card-4" style="width:70%">
-    <header class="w3-container w3-light-grey header">
-        <img class="img-responsive" src="" alt="">
-        <i class="fa fa-user" aria-hidden="true"></i> &nbsp; {{this.postedBy}}
-        <h6 align="right">{{this.created}}</h6>
-    </header>
-    <div class="w3-container content">
-      <p>{{this.text}}</p><br>
-      <img class="img-responsive" src="{{ this.photo }}" alt="">
-    </div>
-    <footer class="w3-container w3-light-grey footer">
-    <span id="heart" onclick="window.location.href='/user/signin'"><i id="h" class="fa fa-heart-o" aria-hidden="true" ></i></span> {{this.likes.length}}
-      &nbsp;
-      &nbsp;
-      <button > <i class="fa fa-comment-o" aria-hidden="true"></i></button>
-    {{this.comments.length}}
-     </footer>
-  </div>
   <br>
-{{/each}}
-</div>
-{{/each}}
-
-    <div class="w3-container content">
-      <input type="text" id="textbox" placeholder="Write Something">
-    </div>
-    <div class="w3-container content" id="commentBox">
-
-    </div>
+  <h2 style="font-family: Georgia, 'Times New Roman', Times, serif;">This Blog App helps you connect and share with the people in your life.</h2>
+<br>
+<br>
+<img src="https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/OBaVg52wtTZ.png" >
 
