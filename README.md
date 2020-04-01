@@ -8,3 +8,8 @@ Simple Blog Application Using Nodejs and MongoDb
 3. Run mongodb
 4. npm run dev
 5. Go To  http://localhost:2929/
+
+# Steps To Run MongoDb
+
+1. create folder data on this project
+2. Write mongod --dbpath=./data on terminal(p.s. Don't close this terminal)
