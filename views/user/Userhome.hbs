@@ -2,12 +2,6 @@
 {{# each items}}
 <div class="w3-container">
 {{# each this}}
-{{#if like}}
-<h1>You like this</h1>
-{{/if}}
-{{#if notlike}}
-<h1>Not Like</h1>
-{{/if}}
   <div class="w3-card-4" style="width:70%">
     <header class="w3-container w3-light-grey header">
         <img class="img-responsive" src="" alt="">
@@ -19,6 +13,9 @@
       <img class="img-responsive" src="{{ this.photo }}" alt="">
     </div>
     <footer class="w3-container w3-light-grey footer">
+       <!--<a class="heart" like-id="{{this._id}}" >
+       <i class="fa fa-heart-o"  ></i>
+       </a >--> 
        <span id="heart" onclick="window.location.href='/user/like/{{this._id}}'" >
        <i id="h" class="fa fa-heart-o"  ></i>
        </span> {{this.likes.length}}
