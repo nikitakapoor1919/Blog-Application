@@ -42,6 +42,13 @@ img {
   #edit{
     text-align:right;
     padding:10px;
-    font-size: 30px;
+    font-size: 25px;
     cursor: pointer;
+  }
+  #nav {
+    overflow: hidden;
+    background-color: #333;
+    position: sticky;
+    top: 0;
+    width: 100%;
   }

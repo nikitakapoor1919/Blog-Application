@@ -6,11 +6,13 @@
 <i class="fa fa-edit"></i>
 </div>
 </a>
-{{# if pic }}
-<img class="image" src=""  width="150" height="170">
+{{#if pic}}
+<img class="image" src="{{pic}}"  width="150" height="170">
 {{else}}
-<img class="image"   width="150" height="170" src="def.jpg">
+<img class="image" src="https://as2.ftcdn.net/jpg/00/64/67/63/500_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"  width="150" height="170">
 {{/if}}
+
+
 <h5 align="center"><b>{{username}} </b></h5>
 
 </div>
@@ -32,32 +34,16 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
             </div>
             </a>
-            <img class="img-responsive" src="" alt="">
+            <img class="img-responsive" src="{{ this.photo }}"alt="">
             <i class="fa fa-user" aria-hidden="true"></i> &nbsp; <b>{{this.postedBy}}</b>
-            <h6 align="right">{{this.created}}</h6>
+          
         </header>
         <div class="w3-container content">
             <p>{{this.text}}</p><br>
             <img class="img-responsive" src="{{ this.photo }}" alt="">
         </div>
         <footer class="w3-container w3-light-grey footer">
-            <span id="heart" ><i id="h" class="fa fa-heart-o" aria-hidden="true" ></i></span> {{this.likes.length}}
-            &nbsp;
-            &nbsp;
-            <button > <i class="fa fa-comment-o" aria-hidden="true"></i></button>
-            {{this.comments.length}}
-                {{# each comments}}
-                <div  class="w3-container content" class="commentBox">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                {{#each this}}
-
-                    <b>{{this.postedBy}} </b>
-                    {{this.text}}
-
-                {{/each}}
-                </div>
-                {{/each}}
-                <a href="/user/add-comment/{{ this._id }}" class="btn btn-primarypull-right" role="button">Add Comment </a>
+            
         </footer>
     </div>
     <br>

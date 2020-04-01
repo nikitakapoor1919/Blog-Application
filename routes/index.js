@@ -51,18 +51,5 @@ router.patch('/post/:id', async (req, res) => {
         res.status(500).send(err)
       }
     })
- router.patch('/update/:id', (req, res) => {
 
-     Post.findOneAndUpdate(
-        {_id:req.params.id}, {$push: {comments:req.body }},
-        function(err,post){
-          if(err)
-          console.log("Error")
-          else{
-            console.log('Done')
-            res.send(post)
-          }
-        }
-      )
-    })
 module.exports = router;

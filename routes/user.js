@@ -44,7 +44,7 @@ router.get('/add-comment/:id',isLoggedIn, function(req, res, next){
 });
 router.post('/add-comment',isLoggedIn, (req, res) => {
   console.log(req.user.email)
-  console.log(req.body.id)
+   var id=req.body.id
   console.log(req.body.Text)
   var text=req.body.Text
   Post.findOneAndUpdate(
@@ -54,7 +54,7 @@ router.post('/add-comment',isLoggedIn, (req, res) => {
        console.log("Error")
        else{
          console.log('Done')
-         res.redirect("/user/Userhome")
+         res.redirect("/user/add-comment/"+id)
        }
      }
    )
@@ -73,6 +73,40 @@ router.get('/Userhome',isLoggedIn, function(req, res) {
             res.render('user/Userhome', {items: postChunk});
           })
 });
+//User Like Post
+router.get('/like/:id',(req,res)=>{
+  Post.find({_id:req.params.id})
+  .exec((err,post)=>{
+    if (err) console.log(err)
+            const alreadyLike = post[0].likes.some(like => like._id == req.user.id);
+            if (alreadyLike) {
+              Post.findOneAndUpdate(
+                    {_id:req.params.id}, {$pull: {likes:req.user.id}},
+                    function(err,post){
+                      if(err)
+                      console.log("Error")
+                      else{
+                        console.log('Done')
+                        res.redirect('/user/Userhome')
+                      }
+                    }
+                  )
+          } else {
+              Post.findOneAndUpdate(
+                    {_id:req.params.id}, {$push: {likes:req.user.id}},
+                    function(err,post){
+                      if(err)
+                      console.log("Error")
+                      else{
+                        console.log('Done')
+                        res.redirect('/user/Userhome')
+                      }
+                    }
+                  )
+            
+          }
+      });
+});
 
 //Edit User
 router.get('/edit',isLoggedIn,(req,res)=>{
@@ -86,7 +120,7 @@ router.post('/edit', isLoggedIn, (req, res) => {
   id=req.user.id
   console.log(id)
   User.findOneAndUpdate(
-    {_id:id},{$set:{name:req.body.Name}},{upsert:true},
+    {_id:id},{$set:{name:req.body.Name,photo:req.body.pic}},{upsert:true},
     function(err,user){
       if(err)
       console.log("Error")
@@ -118,14 +152,9 @@ router.get('/profile', isLoggedIn, function(req, res, next){
 });
 
 //Delete post
-/*
-router.get('/delete/:id',isLoggedIn,(req,res)=>{
-  user=req.user
-  console.log(user)
-  res.render("user/delete",{user:user, csrfToken: req.csrfToken()})
-})
 
-router.post('/delete/:id',isLoggedIn, (req, res) => {
+
+router.get('/delete/:id',isLoggedIn, (req, res) => {
   var id=req.params.id
   Post.deleteOne({_id:id},function(err,post){
     if(err){
@@ -137,7 +166,7 @@ router.post('/delete/:id',isLoggedIn, (req, res) => {
     }
   })
 })
-*/
+
 router.get('/logout', isLoggedIn, function(req, res, next){
   req.logout();
   res.redirect('/');
