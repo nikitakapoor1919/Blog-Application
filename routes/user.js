@@ -4,10 +4,22 @@ var csrf = require('csurf');
 var passport = require('passport');
 var Post=require('../models/post')
 var User=require('../models/user')
+const multer=require('multer')
 
+const storage=multer.diskStorage({
+  destination:function(req,file,cb){
+    cb(null,'./uploads/')
+  },
+  filename:function(req,file,cb)
+  {
+    cb(null,new Date().toISOString().replace(/:/g, '-')+file.originalname)
+  }
+})
+const upload=multer({storage:storage})
 var csrfProtectionToken = csrf();
 router.use(csrfProtectionToken);
 
+//Add a new Post
 router.get('/add-post',isLoggedIn, function(req, res, next){
   console.log(req.user) // Displays Logged In User Details
   username=req.user.email
@@ -15,11 +27,11 @@ router.get('/add-post',isLoggedIn, function(req, res, next){
 });
 
 
-router.post('/add-post',isLoggedIn,function(req,res){
-  if(req.body && req.body.text){
+router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
+ if(req.body  && req.body.text){
     Post.create({
       text: req.body.text,
-      photo: req.body.photo,
+      photo: req.file.path,
       postedBy: req.user.email
       },function(error,post){
         if(error) return console.log("Error in adding the post to database");
@@ -75,10 +87,13 @@ router.get('/Userhome',isLoggedIn, function(req, res) {
 });
 //User Like Post
 router.get('/like/:id',(req,res)=>{
+  var count=0;
   Post.find({_id:req.params.id})
   .exec((err,post)=>{
     if (err) console.log(err)
             const alreadyLike = post[0].likes.some(like => like._id == req.user.id);
+            console.log(post[0].likes.length)
+            var countlikes=post[0].likes.length
             if (alreadyLike) {
               Post.findOneAndUpdate(
                     {_id:req.params.id}, {$pull: {likes:req.user.id}},
@@ -87,7 +102,8 @@ router.get('/like/:id',(req,res)=>{
                       console.log("Error")
                       else{
                         console.log('Done')
-                        res.redirect('/user/Userhome')
+                        countlikes--;
+                        res.send({likeCount:countlikes,text:"notliked"})
                       }
                     }
                   )
@@ -99,7 +115,8 @@ router.get('/like/:id',(req,res)=>{
                       console.log("Error")
                       else{
                         console.log('Done')
-                        res.redirect('/user/Userhome')
+                        countlikes++
+                        res.send({likeCount:countlikes,text:"liked"})
                       }
                     }
                   )
@@ -120,7 +137,30 @@ router.post('/edit', isLoggedIn, (req, res) => {
   id=req.user.id
   console.log(id)
   User.findOneAndUpdate(
-    {_id:id},{$set:{name:req.body.Name,photo:req.body.pic}},{upsert:true},
+    {_id:id},{$set:{name:req.body.Name}},{upsert:true},
+    function(err,user){
+      if(err)
+      console.log("Error")
+      else{
+        res.redirect("/user/profile")
+      }
+    }
+  )
+})
+// add dp
+router.get('/upload-pic',isLoggedIn,(req,res)=>{
+  user=req.user
+  console.log(user)
+  res.render("user/upload-pic",{user:user, csrfToken: req.csrfToken()})
+})
+
+router.post('/upload-pic',isLoggedIn,upload.single('myFile'), (req, res) => {
+  console.log('Editing')
+  id=req.user.id
+  console.log(id)
+  console.log(req.file)
+  User.findOneAndUpdate(
+    {_id:id},{$set:{photo:req.file.path}},{upsert:true},
     function(err,user){
       if(err)
       console.log("Error")
@@ -131,10 +171,11 @@ router.post('/edit', isLoggedIn, (req, res) => {
   )
 })
 
-/* GET : user profile page. */
+/*  profile page. */
 router.get('/profile', isLoggedIn, function(req, res, next){
   username=req.user.email
   pic=req.user.photo
+  console.log(pic)
   console.log(username)
   Post.find({"postedBy":username}).sort({created:-1})
   .exec(function (err,post){
@@ -150,10 +191,26 @@ router.get('/profile', isLoggedIn, function(req, res, next){
   })
   
 });
+//Remove Profile Pic
+router.get('/remove-pic/',isLoggedIn, (req, res) => {
+  pic=req.user.photo
+  pic=null
+  console.log(pic)
+  id=req.user.id
+  console.log(id)
+  User.findOneAndUpdate(
+    {_id:id},{$set:{photo:pic}},{upsert:true},
+    function(err,user){
+      if(err)
+      console.log("Error")
+      else{
+        res.redirect("/user/profile")
+      }
+    }
+  )
+})
 
 //Delete post
-
-
 router.get('/delete/:id',isLoggedIn, (req, res) => {
   var id=req.params.id
   Post.deleteOne({_id:id},function(err,post){
@@ -199,7 +256,6 @@ router.post('/signin', passport.authenticate('local.signin', {
   failureRedirect: '/user/signin',
   failureFlash: true
 }));
-
 
 module.exports = router;
 

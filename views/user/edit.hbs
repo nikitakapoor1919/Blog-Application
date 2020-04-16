@@ -3,7 +3,7 @@
         <h1 align="center">Edit Peronal Details</h1>
         <br>
         {{# if user}}
-        <form  action="/user/edit" method="POST">
+        <form  action="/user/edit" method="POST" >
             <div class="form-group">
                 <label for="email" >E-mail/Username</label>
                 <br>
@@ -14,15 +14,8 @@
                 <br>
                 <input type="text" id="Name" value="{{user.name}}" name="Name" class="form-control" autocomplete="off" required>
             </div>
-            <div class="form-group">
-                <label for="image" >Profile Pic</label>
-                <br>
-                <input type="text" id="image" value="{{user.photo}}" name="pic" class="form-control" autocomplete="off" >
-            </div>
-    
-             
             <br>
-            <input type="hidden" name="_csrf"  value="{{csrfToken}}">
+            <input type="hidden"  name="_csrf"  value="{{csrfToken}}">
             <button type="submit" class="btn btn-success col-3 ">Update</button>
             
         </form>

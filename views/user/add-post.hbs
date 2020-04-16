@@ -9,17 +9,18 @@
         <h6 align="right"></h6>
     </header>
     <div class="w3-container content">
-        <form  action="/user/add-post" method="post">
+        <form  action="/user/add-post/?_csrf={{csrfToken}}" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <textarea name="text" placeholder="Write Something Here..." rows="4" cols="50" class="form-control" required>
               </textarea>
                <br>
             </div>
             <div class="form-group">
-                <label for="image" >Add ImagePath</label>
+                <label for="image" >Add Image</label>
                 <br>
-                <input type="text" id="photo" placeholder="Enter URL" name="photo" class="form-control">
+                <input type="file" name="image"  class="form-control">
             </div>
+           
     
             <input type="hidden" name="_csrf"  value="{{csrfToken}}">
             <button id="btnAddPost"  type="submit" class="btn btn-primary">POST</button>
