@@ -4,7 +4,13 @@
 img {
     max-height: 300px;
 }
-
+.fa-thumbs-o-up{
+  cursor: pointer;
+}
+.fa-heart-o {
+  color: red;
+  cursor: pointer;
+}
   
  .fa-heart-o {
     color: red;
@@ -27,10 +33,14 @@ img {
       width:70%;
       padding:20px;
   }
-  #userBox
-  {
-      width: 70%;
-       border:1px solid grey;
+  .responsive {
+    width: 100%;
+    min-height: 300px;
+    max-height: 700px;
+  }
+  .responsiveBox {
+    width: 80%;
+    height: auto;
   }
   .image{
     display: block;
@@ -45,7 +55,7 @@ img {
   }
   #nav {
     overflow: hidden;
-    background-color: #333;
+    background-color:#333;
     top: 0;
     width: 100%;
   }

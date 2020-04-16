@@ -20,6 +20,7 @@ router.get('/posts',async (req,res)=>{
 })
  //For PostMan Checking  
 router.post('/post',async (req,res)=>{
+      console.log(req.file)
       const post=new Post(req.body)
 
       try{

@@ -14,14 +14,14 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    {{# if login}}
-                        <a style="color:white" class="navbar-brand" href="/user/add-post"> AddPost</a>
-                        <a style="color:white" class="navbar-brand" href="/user/profile">  Profile</a>
-                        <a style="color:white" class="navbar-brand" href="/user/logout">LogOut</a>
-                    {{else}}
-                        <a style="color:white" class="navbar-brand" href="/user/signin">SignIn</a>
-                        <a style="color:white" class="navbar-brand" href="/user/signup">SignUp</a>
-                    {{/if}}
+                 {{#if login}}
+                    <li><a class="fa fa-plus"style="color: white;" href="/user/add-post">AddPost</a></li>
+                     <li><a class="fa fa-user" style="color: white;" href="/user/profile"> Profile</a></li>
+                    <li><a class="glyphicon glyphicon-log-out"style="color: white;" href="/user/logout">Logout</a></li>
+                {{else}}
+                    <li><a class="glyphicon glyphicon-user" style="color: white;" href="/user/signup"> SignUp</a></li>
+                    <li><a class="glyphicon glyphicon-log-in" style="color: white;"  href="/user/signin"> SignIn</a></li>
+                {{/if}}
 
                 </ul>
             </div>
