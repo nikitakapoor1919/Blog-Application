@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app",
-    "dev": "nodemon app"
+    "start": "node app.js",
+    "build": "node build/build.js"
   },
   "author": "Nikita Kapoor",
   "license": "ISC",
@@ -31,5 +31,8 @@
   },
   "devDependencies": {
     "handlebars": "^4.5.0"
+  },
+  "engines": {
+    "node":"13.7.0"
   }
 }

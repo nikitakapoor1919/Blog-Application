@@ -9,6 +9,7 @@ var flash=require('connect-flash')
 var validator=require('express-validator')
 var path = require('path');
 
+var port=process.env.PORT||2929
 var app=express()
 
 require('./config/passport')
@@ -16,7 +17,7 @@ require('./config/passport')
 var routes = require('./routes/index');
 var UserRoutes = require('./routes/user');
 
-mongoose.connect('mongodb://localhost:27017/blog', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost:27017/blog', {useNewUrlParser: true,useUnifiedTopology:true});
 
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', '.hbs');
@@ -42,7 +43,10 @@ app.use(function(req,res,next){
 app.use('/', routes);
 app.use('/user', UserRoutes);
 
-  
-app.listen(2929,()=>{
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static('build'))
+}
+
+app.listen(port,()=>{
     console.log('Server Running on 2929')
 })
