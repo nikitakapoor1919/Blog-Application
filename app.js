@@ -50,5 +50,5 @@ if(process.env.NODE_ENV==='production'){
 }
 
 app.listen(port,()=>{
-    console.log('Server Running on 2929')
+    console.log(`Server Running on ${port}`)
 })
