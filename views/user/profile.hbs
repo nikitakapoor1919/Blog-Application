@@ -1,9 +1,9 @@
-<div id="userBox" class="responsiveBox">
+<div id="userBox" class="responsiveBox" style="margin-top:30px;margin-left:5%">
 <div class="w3-card-4" id="b" style="width:100%">
 <br>
-<div>
+<div style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSXA3f5qwIhq8qTZfzWiJv_AZMA9qNU2ZSJFiVZ9vQu-Q&usqp=CAU&ec=45673586');">
 <a href="/user/edit">
-<div id="edit">
+<div id="edit" >
 <i class="fa fa-edit"></i>
 </div>
 </a>
@@ -19,24 +19,21 @@
 {{/if}}
 
 
-<h5 align="center"><b>{{username}} </b></h5>
-<a href="/user/remove-pic" class="btn btn-danger pull-right" style="margin: 20px;" role="button">Remove Profile Pic</a>
-<a href="/user/upload-pic" class="btn btn-primary pull-right" style="margin: 20px;" role="button">Update Profile Pic</a>
+<h5 align="center" ><b>{{username}} </b></h5>
+<a href="/user/remove-pic" class="btn btn-danger pull-right" style="margin-right:20px" role="button">Remove Profile Pic</a>
+<a href="/user/upload-pic" class="btn btn-primary pull-right"  role="button">Update Profile Pic</a>
 <br><br>
 </div>
-<br>
-<header class="w3-container w3-light-grey header">
+<header class="w3-container w3-light-grey header" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT0oDriWCjTwapoQ_I-qdLPrepH3zQ2K6MwcM5Pr57Tzg&usqp=CAU&ec=45673586');">
  
 </header>
-<br>
-<br>
 <div id="post">
 
 {{# each items}}
 
-<div class="w3-container">
+<div class="w3-container" style="background-color: #9d9d9a4d;" >
 {{# each this}}
-    <div class="w3-card-4" style="width:65%">
+    <div class="w3-card-4" style="width:65%,margin-left:20%">
         <header class="w3-container w3-light-grey header">
             
             <a href="/user/delete/{{ this._id }}">
@@ -48,9 +45,9 @@
             <i class="fa fa-user" aria-hidden="true"></i> &nbsp; <b>{{this.postedBy}}</b>
           
         </header>
-        <div class="w3-container content">
+        <div class="w3-container content" >
             <p>{{this.text}}</p><br>
-            <img class="img-responsive" src="http://localhost:2929/{{ this.photo }}" alt="">
+            <img class="img-responsive" src="http://localhost:2929/{{ this.photo }}" alt="" >
         </div>
         <footer class="w3-container w3-light-grey footer">
                 <i class="fa fa-thumbs-o-up heart" like-id="{{this._id}}" >{{this.likes.length}} </i> 

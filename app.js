@@ -16,6 +16,7 @@ require('./config/passport')
 
 var routes = require('./routes/index');
 var UserRoutes = require('./routes/user');
+var favicon = require('serve-favicon');
 
 mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost:27017/blog', {useNewUrlParser: true,useUnifiedTopology:true});
 
@@ -34,6 +35,7 @@ app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public','images', 'favicon.ico')));
 app.use('/uploads', express.static('uploads'));
 
 app.use(function(req,res,next){
