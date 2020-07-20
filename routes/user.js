@@ -49,6 +49,7 @@ router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
 
 //Add comment
 router.get('/add-comment/:id',isLoggedIn, function(req, res, next){
+
   Post.find({_id:req.params.id})
   .exec( function(err, post){
     var postChunk = []; var chunkSize = 3;

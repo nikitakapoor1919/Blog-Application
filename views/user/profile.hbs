@@ -1,7 +1,7 @@
 <div id="userBox" class="responsiveBox" style="margin-top:30px;margin-left:5%">
 <div class="w3-card-4" id="b" style="width:100%">
 <br>
-<div style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSXA3f5qwIhq8qTZfzWiJv_AZMA9qNU2ZSJFiVZ9vQu-Q&usqp=CAU&ec=45673586');">
+<div style="background-image: url('https://i.pinimg.com/originals/45/ce/c7/45cec757faf8d07318cc829dcf21c697.jpg');">
 <a href="/user/edit">
 <div id="edit" >
 <i class="fa fa-edit"></i>
@@ -13,7 +13,7 @@
 </div>
 </a>
 {{#if pic}}
-<img class="image" src="http://localhost:2929/{{pic}}"  width="220" height="240">
+<img class="image" src="{{window.location.href}}/{{pic}}"  width="220" height="240">
 {{else}}
 <img class="image" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"  width="220" height="240">
 {{/if}}
@@ -43,11 +43,12 @@
             </a>
             
             <i class="fa fa-user" aria-hidden="true"></i> &nbsp; <b>{{this.postedBy}}</b>
+             <span style="float: right;">{{this.created}}</span>
           
         </header>
         <div class="w3-container content" >
             <p>{{this.text}}</p><br>
-            <img class="img-responsive" src="http://localhost:2929/{{ this.photo }}" alt="" >
+            <img class="img-responsive" src="{{window.location.href}}/{{ this.photo }}" alt="" >
         </div>
         <footer class="w3-container w3-light-grey footer">
                 <i class="fa fa-thumbs-o-up heart" like-id="{{this._id}}" >{{this.likes.length}} </i> 
