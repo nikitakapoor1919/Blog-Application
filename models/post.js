@@ -1,5 +1,6 @@
 var mongoose=require('mongoose')
 var Schema=mongoose.Schema
+const moment=require('moment')
 
 const PostSchema = new mongoose.Schema({
     text: {
@@ -18,9 +19,8 @@ const PostSchema = new mongoose.Schema({
     postedBy: {type: String, ref: 'User'},
     created: {
       type: Date,
-      default: Date.now
+      default: moment(Number( moment().valueOf().toString())).format(' YYYY-MM-DD h:mm A')
     }
   })
 
   module.exports=mongoose.model('post',PostSchema);
-  

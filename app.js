@@ -8,6 +8,7 @@ var passport=require('passport')
 var flash=require('connect-flash')
 var validator=require('express-validator')
 var path = require('path');
+var helpers = require('handlebars-helpers')();
 
 var port=process.env.PORT||2929
 var app=express()
@@ -18,7 +19,8 @@ var routes = require('./routes/index');
 var UserRoutes = require('./routes/user');
 var favicon = require('serve-favicon');
 
-mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost:27017/blog', {useNewUrlParser: true,useUnifiedTopology:true});
+mongoose.connect(process.env.MONGODB_URI||'mongodb+srv://nikitakapoor1919:1998Nikita1998@cluster0.ibwts.mongodb.net/blog?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology:true});
+
 
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', '.hbs');

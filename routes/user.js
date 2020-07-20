@@ -4,6 +4,9 @@ var csrf = require('csurf');
 var passport = require('passport');
 var Post=require('../models/post')
 var User=require('../models/user')
+
+var moment = require('moment');
+
 const multer=require('multer')
 
 const storage=multer.diskStorage({
@@ -28,7 +31,7 @@ router.get('/add-post',isLoggedIn, function(req, res, next){
 
 
 router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
-  if(req.body.path){
+ if(req.body  && req.body.text ){
     Post.create({
       text: req.body.text,
       photo: req.file.path,
@@ -40,30 +43,8 @@ router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
       }
     );
   }
-  if(req.body  && req.body.text ){
-    Post.create({
-      text: req.body.text,
-      postedBy: req.user.email
-      },function(error,post){
-        if(error) return console.log("Error in adding the post to database");
-        console.log("Post created");
-        res.redirect("/user/Userhome")
-      }
-    );
-  }
- if(req.body  && req.body.text && req.body.path){
-    Post.create({
-      text: req.body.text,
-      photo: req.file.path,
-      postedBy: req.user.email
-      },function(error,post){
-        if(error) return console.log("Error in adding the post to database");
-        console.log("Post created");
-        res.redirect("/user/Userhome")
-      }
-    );
-  }
-
+ 
+  
 });
 
 //Add comment
@@ -106,7 +87,7 @@ router.get('/Userhome',isLoggedIn, function(req, res) {
               postChunk.push(post.slice(i, i + chunkSize));
             }
             console.log(postChunk);
-            res.render('user/Userhome', {items: postChunk});
+            res.render('user/Userhome', {items: postChunk,moment: moment });
           })
 });
 //User Like Post
