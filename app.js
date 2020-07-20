@@ -19,8 +19,11 @@ var routes = require('./routes/index');
 var UserRoutes = require('./routes/user');
 var favicon = require('serve-favicon');
 
-mongoose.connect(process.env.MONGODB_URI||'mongodb+srv://nikitakapoor1919:1998Nikita1998@cluster0.ibwts.mongodb.net/blog?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology:true});
+//mongoose.connect(process.env.MONGODB_URI||'mongodb+srv://nikitakapoor1919:1998Nikita1998@cluster0.ibwts.mongodb.net/blog?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology:true});
+var uri = "mongodb+srv://nikitakapoor1919:1998Nikita1998@cluster0.ibwts.mongodb.net/blog?retryWrites=true&w=majority"
 
+mongoose.connect(uri, {useNewUrlParser: true});
+var db = mongoose.connection;
 
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', '.hbs');
