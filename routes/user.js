@@ -31,10 +31,10 @@ router.get('/add-post',isLoggedIn, function(req, res, next){
 
 
 router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
- if(req.body  && req.body.text ){
+  if(req.body && req.body.text){
     Post.create({
       text: req.body.text,
-      photo: req.file.path,
+     // photo: req.file.path,
       postedBy: req.user.email
       },function(error,post){
         if(error) return console.log("Error in adding the post to database");
@@ -43,8 +43,6 @@ router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
       }
     );
   }
- 
-  
 });
 
 //Add comment
