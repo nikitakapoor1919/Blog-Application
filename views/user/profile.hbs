@@ -13,7 +13,7 @@
 </div>
 </a>
 {{#if pic}}
-<img class="image" src="{{window.location.href}}/{{pic}}"  width="220" height="240">
+<img class="image" src="../../{{pic}}"  width="220" height="240">
 {{else}}
 <img class="image" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"  width="220" height="240">
 {{/if}}
@@ -43,12 +43,11 @@
             </a>
             
             <i class="fa fa-user" aria-hidden="true"></i> &nbsp; <b>{{this.postedBy}}</b>
-             <span style="float: right;">{{this.created}}</span>
           
         </header>
         <div class="w3-container content" >
             <p>{{this.text}}</p><br>
-            <img class="img-responsive" src="{{window.location.href}}/{{ this.photo }}" alt="" >
+            <img class="img-responsive" src="../../{{ this.photo }}" alt="" >
         </div>
         <footer class="w3-container w3-light-grey footer">
                 <i class="fa fa-thumbs-o-up heart" like-id="{{this._id}}" >{{this.likes.length}} </i> 
