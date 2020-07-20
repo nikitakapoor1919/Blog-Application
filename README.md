@@ -13,3 +13,5 @@ Simple Blog Application Using Nodejs and MongoDb
 
 1. create folder data on this project
 2. Write mongod --dbpath=./data on terminal(p.s. Don't close this terminal)
+
+![Alt Text](https://media1.giphy.com/media/WOZuF6QN2g5yGWy0kN/giphy.gif)
