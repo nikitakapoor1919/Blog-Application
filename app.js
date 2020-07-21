@@ -19,8 +19,8 @@ var routes = require('./routes/index');
 var UserRoutes = require('./routes/user');
 var favicon = require('serve-favicon');
 
-//mongoose.connect(process.env.MONGODB_URI||'mongodb+srv://nikitakapoor1919:1998Nikita1998@cluster0.ibwts.mongodb.net/blog?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology:true});
-var uri = "mongodb+srv://nikitakapoor1919:1998Nikita1998@cluster0.ibwts.mongodb.net/blog?retryWrites=true&w=majority"
+var uri = process.env.URI;
+
 
 mongoose.connect(uri, {useNewUrlParser: true});
 var db = mongoose.connection;
