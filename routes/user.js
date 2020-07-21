@@ -13,14 +13,18 @@ const multer=require('multer')
 var moment = require('moment');
 
 const storage=multer.diskStorage({
-  destination:function(req,file,cb){
-    cb(null,'./uploads/')
-  },
-  filename:function(req,file,cb)
-  {
-    cb(null,new Date().toISOString().replace(/:/g, '-')+file.originalname)
-  }
+  // destination:function(req,file,cb){
+  //   cb(null,'./uploads/')
+  // },
+  // filename:function(req,file,cb)
+  // {
+  //   cb(null,new Date().toISOString().replace(/:/g, '-')+file.originalname)
+  // }
 })
+// fileFilter:(req,file,cb)=>{
+//   if(!file.mimetype.match(/jpe|jpeg|png|gif$i/)){
+//     cb(new Error("File not supported"),false)
+//   }
 const upload=multer({storage:storage})
 var csrfProtectionToken = csrf();
 router.use(csrfProtectionToken);
