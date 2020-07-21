@@ -4,10 +4,13 @@ var csrf = require('csurf');
 var passport = require('passport');
 var Post=require('../models/post')
 var User=require('../models/user')
+require('dotenv').config()
+const cloudinary=require('cloudinary')
+require('../config/cloudinaryConfig.js')
+//const upload=require('../config/multer.js')
+const multer=require('multer')
 
 var moment = require('moment');
-
-const multer=require('multer')
 
 const storage=multer.diskStorage({
   destination:function(req,file,cb){
@@ -30,11 +33,13 @@ router.get('/add-post',isLoggedIn, function(req, res, next){
 });
 
 
-router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
+router.post('/add-post',isLoggedIn,upload.single('image'),async (req, res) =>{
+  const result=await cloudinary.v2.uploader.upload(req.file.path)
+  console.log(result.url)
   if(req.body && req.body.text){
     Post.create({
       text: req.body.text,
-     // photo: req.file.path,
+      photo: result.url,
       postedBy: req.user.email
       },function(error,post){
         if(error) return console.log("Error in adding the post to database");
@@ -43,6 +48,7 @@ router.post('/add-post',isLoggedIn,upload.single('image'), function(req,res){
       }
     );
   }
+
 });
 
 //Add comment
@@ -157,13 +163,13 @@ router.get('/upload-pic',isLoggedIn,(req,res)=>{
   res.render("user/upload-pic",{user:user, csrfToken: req.csrfToken()})
 })
 
-router.post('/upload-pic',isLoggedIn,upload.single('myFile'), (req, res) => {
-  console.log('Editing')
-  id=req.user.id
-  console.log(id)
-  console.log(req.file)
+router.post('/upload-pic',isLoggedIn,upload.single('myFile'),async (req, res) => {
+    const result=await cloudinary.v2.uploader.upload(req.file.path)
+  // res.send(result)
+  // console.log(result.url)
+  await
   User.findOneAndUpdate(
-    {_id:id},{$set:{photo:req.file.path}},{upsert:true},
+    {_id:req.user.id},{$set:{photo:result.url}},{upsert:true},
     function(err,user){
       if(err)
       console.log("Error")

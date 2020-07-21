@@ -19,7 +19,7 @@ const PostSchema = new mongoose.Schema({
     postedBy: {type: String, ref: 'User'},
     created: {
       type: Date,
-      default: moment(Number( moment().valueOf().toString())).format(' YYYY-MM-DD h:mm A')
+      default:Date.now()
     }
   })
 
