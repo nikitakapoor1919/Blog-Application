@@ -22,7 +22,7 @@ var favicon = require('serve-favicon');
 var uri = process.env.URI;
 
 
-mongoose.connect(uri, {useNewUrlParser: true});
+mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true });
 var db = mongoose.connection;
 
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));

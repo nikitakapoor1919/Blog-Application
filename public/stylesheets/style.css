@@ -34,9 +34,9 @@ img {
       padding:20px;
   }
   .responsive {
-    width: 100%;
+    width: 90%;
     min-height: 300px;
-    max-height: 700px;
+    max-height: 500px;
   }
   .responsiveBox {
     width: 90%;

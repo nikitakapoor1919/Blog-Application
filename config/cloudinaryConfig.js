@@ -1,8 +1,8 @@
 const cloudinary=require('cloudinary')
 
 cloudinary.config({
-    cloud_name: 'dsgwpa5jj',
-    api_key: '526676765171943',
-    api_secret: 'rkkigzEzUZ_iR_WFO_mReIUjGvQ',
+    cloud_name: 'djqnb44vp',
+    api_key: '442567511546159',
+    api_secret: '_6SLRzSeqq_ECxrKo1jZLYoSICE',
 })
 
