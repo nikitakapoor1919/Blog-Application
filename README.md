@@ -1,5 +1,5 @@
-# Blog-Application
-Simple Blog Application Using Nodejs and MongoDb
+# Blog-Application using Nodejs, Handlebars and MongoDb
+Simple Chat Web Application using firebase as backend .Users can create account or login by gmail.You can send images and stickers while chatting. 
 
 # Follow These Steps
 
@@ -8,11 +8,6 @@ Simple Blog Application Using Nodejs and MongoDb
 3. Run mongodb
 4. npm run dev
 5. Go To  http://localhost:2929/
-
-# Steps To Run MongoDb
-
-1. create folder data on this project
-2. Write mongod --dbpath=./data on terminal(p.s. Don't close this terminal)
 
 <a href='https://blog-app-socialnetwork.herokuapp.com/'>Live Demo</a>
 
