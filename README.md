@@ -1,5 +1,5 @@
 # Blog-Application using Nodejs, Handlebars and MongoDb
-Simple Chat Web Application using firebase as backend .Users can create account or login by gmail.You can send images and stickers while chatting. 
+In this Social Blog Web Application you can send your views and posts publically on this platform and other people can review it by liking and commenting.
 
 # Follow These Steps
 
